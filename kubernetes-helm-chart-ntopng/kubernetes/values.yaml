@@ -1,0 +1,25 @@
+ntopngNodeSelector:
+  kubernetes.io/os: "linux"
+
+ntopngImageName: "ghcr.io/gdha/pi4-ntopng"
+ntopngImageVersion: "v1.4"
+ntopngResources:
+  limits:
+    cpu: 1
+    memory: 512Mi
+  requests:
+    cpu: 500m
+    memory: 256Mi
+
+ntopngConfig: |-
+  --disable-login=1
+  --dns-mode=3
+  # Limit memory usage
+  --max-num-flows=200000
+  --max-num-hosts=250000
+  #--interface=xxxxxx
+  --no-promisc
+
+ntopngService:
+  type: LoadBalancer
+  port: 80

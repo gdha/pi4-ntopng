@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "kubernetes.name" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: {{ template "kubernetes.name" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ template "kubernetes.name" . }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "kubernetes.name" . }}
+        chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+        release: {{ .Release.Name }}
+        heritage: {{ .Release.Service }}
+    spec:
+      terminationGracePeriodSeconds: 10
+      hostNetwork: true
+      nodeSelector:
+        {{- range $key, $val := .Values.ntopngNodeSelector }}
+        {{ $key }}: {{ $val | quote }}
+        {{- end}}
+      imagePullSecrets:
+        - name: {{ template "kubernetes.name" . }}-ghrc
+      containers:
+      - name: ntopng
+        image: {{ .Values.ntopngImageName }}:{{ .Values.ntopngImageVersion }}
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: ntopng
+          containerPort: 3000
+          protocol: TCP
+        resources:
+{{ toYaml .Values.ntopngResources | indent 12 }}
+{{ if .Values.ntopngConfig }}
+        env:
+          - name: CONFIG
+            value: /ntopng/ntopng.conf
+        volumeMounts:
+        - name: config
+          mountPath: /ntopng
+      volumes:
+      - name: config
+        configMap:
+          name: {{ template "kubernetes.name" . }}
+{{ end }}
