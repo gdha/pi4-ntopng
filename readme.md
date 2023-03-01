@@ -140,6 +140,6 @@ sh: 1: netstat: not found
 23/Feb/2023 15:58:35 [NetworkInterface.cpp:2010] WARNING: Use sudo ethtool -K veth9cbeefd9 gro off gso off tso off
 ```
 
-Open a browser and access the ntopng application via URL http:<ip address of docker host>:3000/
+Open a browser and access the ntopng application via URL `http:<ip address of docker host>:3000/`
 
 <img alt="ntopng application" src="pictures/ntopng.png" width="900">
