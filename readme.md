@@ -142,4 +142,4 @@ sh: 1: netstat: not found
 
 Open a browser and access the ntopng application via URL http:<ip address of docker host>:3000/
 
-<img alt="ntopng application" src="pictures/ntopng.png" width="400">
+<img alt="ntopng application" src="pictures/ntopng.png" width="700">
