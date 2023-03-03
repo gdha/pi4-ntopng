@@ -187,4 +187,27 @@ gdha@n1:~/projects/pi4-ntopng/kubernetes-helm-chart-ntopng$ kubectl get pods -n 
 NAME                      READY   STATUS              RESTARTS   AGE
 ntopng-6979c5b94c-9kc9g   0/1     ContainerCreating   0          44s
 ntopng-6979c5b94c-9kc9g   1/1     Running             0          52s
+
+$ kubectl get svc -n ntopng
+NAME     TYPE           CLUSTER-IP      EXTERNAL-IP     PORT(S)        AGE
+ntopng   LoadBalancer   10.43.195.118   192.168.0.235   80:31635/TCP   2m57s
 ```
+
+Once the pod is running (and stays running) you can open with a browser the ntopng application via URL http://192.168.0.235/
+
+<img alt="ntopng application" src="pictures/ntopng-k3s.png" width="900">
+
+To remove the ntopng project run:
+
+```
+$ helm uninstall --debug --namespace ntopng ntopng
+uninstall.go:95: [debug] uninstall: Deleting ntopng
+client.go:477: [debug] Starting delete for "ntopng" Service
+client.go:477: [debug] Starting delete for "ntopng" Deployment
+client.go:477: [debug] Starting delete for "ntopng" ConfigMap
+client.go:477: [debug] Starting delete for "ntopng" Secret
+client.go:477: [debug] Starting delete for "ntopng-ghrc" Secret
+uninstall.go:148: [debug] purge requested for ntopng
+release "ntopng" uninstalled
+```
+

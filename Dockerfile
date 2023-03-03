@@ -12,7 +12,7 @@ RUN apt-get update && \
     add-apt-repository universe && \
     wget https://packages.ntop.org/apt/20.04/all/apt-ntop.deb && \
     apt install -y ./apt-ntop.deb && \
-    apt install -y ntopng ntopng-data redis-server libmysqlclient-dev libpcap0.8
+    apt install -y ntopng ntopng-data redis-server libmysqlclient-dev libpcap0.8 netstat-nat
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 EXPOSE 3000

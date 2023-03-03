@@ -2,14 +2,14 @@ ntopngNodeSelector:
   kubernetes.io/os: "linux"
 
 ntopngImageName: "ghcr.io/gdha/pi4-ntopng"
-ntopngImageVersion: "v1.4"
+ntopngImageVersion: "v1.5"
 ntopngResources:
-  limits:
-    cpu: 1
-    memory: 512Mi
-  requests:
-    cpu: 500m
-    memory: 256Mi
+        #  limits:
+        #    cpu: 1
+        #    memory: 512Mi
+        #  requests:
+        #    cpu: 500m
+        #    memory: 256Mi
 
 ntopngConfig: |-
   --disable-login=1
