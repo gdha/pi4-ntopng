@@ -197,7 +197,12 @@ Once the pod is running (and stays running) you can open with a browser the ntop
 
 <img alt="ntopng application" src="pictures/ntopng-k3s.png" width="900">
 
-To remove the ntopng project run:
+Interesting to see how much resources this pod `ntopng` uses on node n5:
+
+<img alt="ntopng application" src="pictures/ntopng-resources.png" width="900">
+
+
+## To remove the ntopng project run:
 
 ```
 $ helm uninstall --debug --namespace ntopng ntopng
