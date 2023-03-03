@@ -195,11 +195,11 @@ ntopng   LoadBalancer   10.43.195.118   192.168.0.235   80:31635/TCP   2m57s
 
 Once the pod is running (and stays running) you can open with a browser the ntopng application via URL http://192.168.0.235/
 
-<img alt="ntopng application" src="pictures/ntopng-k3s.png" width="900">
+<img alt="ntopng application" src="../pictures/ntopng-k3s.png" width="900">
 
 Interesting to see how much resources this pod `ntopng` uses on node n5:
 
-<img alt="ntopng application" src="pictures/ntopng-resources.png" width="900">
+<img alt="ntopng application" src="../pictures/ntopng-resources.png" width="900">
 
 
 ## To remove the ntopng project run:
