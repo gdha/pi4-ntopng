@@ -5,13 +5,14 @@ Original: https://github.com/MySocialApp/kubernetes-helm-chart-ntopng.git
 
 ```bash
 $ kubectl create -f ./kubernetes/namespace.yaml
+
 $ helm install --debug --namespace ntopng ntopng ./kubernetes
 install.go:193: [debug] Original chart version: ""
 install.go:210: [debug] CHART PATH: /home/gdha/projects/pi4-ntopng/kubernetes-helm-chart-ntopng/kubernetes
 
 client.go:133: [debug] creating 5 resource(s)
 NAME: ntopng
-LAST DEPLOYED: Fri Feb 24 17:08:46 2023
+LAST DEPLOYED: Fri Mar  3 13:58:27 2023
 NAMESPACE: ntopng
 STATUS: deployed
 REVISION: 1
@@ -29,16 +30,10 @@ ntopngConfig: |-
   #--interface=xxxxxx
   --no-promisc
 ntopngImageName: ghcr.io/gdha/pi4-ntopng
-ntopngImageVersion: v1.4
+ntopngImageVersion: v1.5
 ntopngNodeSelector:
   kubernetes.io/os: linux
-ntopngResources:
-  limits:
-    cpu: 1
-    memory: 512Mi
-  requests:
-    cpu: 500m
-    memory: 256Mi
+ntopngResources: null
 ntopngService:
   port: 80
   type: LoadBalancer
@@ -56,7 +51,7 @@ metadata:
   namespace: ntopng
   labels:
     app: ntopng
-    chart: ntopng-v1.4
+    chart: ntopng-1.0.0
     release: ntopng
     heritage: Helm
   creationTimestamp: null
@@ -72,7 +67,7 @@ metadata:
   namespace: ntopng
   labels:
     app: ntopng
-    chart: ntopng-v1.4
+    chart: ntopng-1.0.0
     release: ntopng
     heritage: Helm
 type: Opaque
@@ -85,7 +80,7 @@ metadata:
   namespace: ntopng
   labels:
     app: ntopng
-    chart: ntopng-v1.4
+    chart: ntopng-1.0.0
     release: ntopng
     heritage: Helm
 data:
@@ -106,7 +101,7 @@ metadata:
   namespace: ntopng
   labels:
     app: ntopng
-    chart: ntopng-v1.4
+    chart: ntopng-1.0.0
     release: ntopng
     heritage: Helm
 spec:
@@ -128,7 +123,7 @@ metadata:
   namespace: ntopng
   labels:
     app: ntopng
-    chart: ntopng-v1.4
+    chart: ntopng-1.0.0
     release: ntopng
     heritage: Helm
 spec:
@@ -140,7 +135,7 @@ spec:
     metadata:
       labels:
         app: ntopng
-        chart: ntopng-v1.4
+        chart: ntopng-1.0.0
         release: ntopng
         heritage: Helm
     spec:
@@ -152,19 +147,14 @@ spec:
         - name: ntopng-ghrc
       containers:
       - name: ntopng
-        image: ghcr.io/gdha/pi4-ntopng:v1.4
+        image: ghcr.io/gdha/pi4-ntopng:v1.5
         imagePullPolicy: IfNotPresent
         ports:
         - name: ntopng
           containerPort: 3000
           protocol: TCP
         resources:
-            limits:
-              cpu: 1
-              memory: 512Mi
-            requests:
-              cpu: 500m
-              memory: 256Mi
+            null
 
         env:
           - name: CONFIG
@@ -176,6 +166,7 @@ spec:
       - name: config
         configMap:
           name: ntopng
+
 
 gdha@n1:~/projects/pi4-ntopng/kubernetes-helm-chart-ntopng$ kubectl get secrets -n ntopng
 NAME                           TYPE                             DATA   AGE
