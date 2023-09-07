@@ -47,7 +47,6 @@ jobs:
         with:
           image: pi4-ntopng
           tags: >-
-            latest
             ${{ env.APP_VERSION }}
           oci: true
           platforms: linux/amd64, linux/arm64
@@ -58,8 +57,8 @@ jobs:
         if: ${{ (github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.publish)) && github.ref == 'refs/heads/master' }}
         uses: redhat-actions/push-to-registry@9986a6552bc4571882a4a67e016b17361412b4df # v2.7
         with:
-          image: ${{ steps.container.outputs.image }}
-          tags: ${{ steps.container.outputs.tags }}
+          image: pi4-ntopng
+          tags: {{ env.APP_VERSION }}
           registry: ghcr.io/${{ github.repository_owner }}
           username: ${{ github.actor }}
           password: ${{ github.token }}
