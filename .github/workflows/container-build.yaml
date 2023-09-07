@@ -2,11 +2,11 @@ name: "Container multi-Image Build pi4-ntopng"
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "master" ]
     # Publish semver tags as releases.
     tags: [ '*.*.*' ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "master" ]
   workflow_dispatch:
     inputs:
       publish:
@@ -37,7 +37,7 @@ jobs:
 
       - name: Get ntopng Version
         run: |-
-          VERSION="3.8.190813"    # Ubuntu focal version
+          VERSION="3.8.190813"    # Ubuntu focal version of ntopng
           echo "APP_VERSION=${VERSION}"
           echo "APP_VERSION=${VERSION}" >> $GITHUB_ENV
 
