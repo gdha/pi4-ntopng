@@ -1,7 +1,9 @@
 # ntopng container
 
-We have 2 ways to build a _pi4_ntopng_ container. One with the `build.sh` script which uses the ntopng package which available in ubuntu 20.04 repository (currently version 3.8.190813).
-The second way is building from scratch (from the sources of https://github.com/ntop/ntopng dev branch) with the script `builder.sh` which uses the development version (beginning of October 2023 it is 5.7.0).
+We have 2 ways to build a _pi4_ntopng_ container. One with the `build.sh` script which uses the ntopng package which available in ubuntu 20.04 repository (currently version 3.8.190813 or v1.5).
+The second way is building from scratch (from the sources of https://github.com/ntop/ntopng dev branch) with the script `builder.sh` which uses the development version (beginning of October 2023 it is version 5.7.0 or v1.9).
+
+To test it with docker (before trying to integrate it within kubernetes) we can do the following:
 
 ```bash
 gdha@n1:~/projects/pi4-ntopng$ docker run --net=host -t -p 3000:3000 ghcr.io/gdha/pi4-ntopng:v1.5
