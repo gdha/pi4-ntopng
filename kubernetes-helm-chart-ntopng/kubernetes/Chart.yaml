@@ -1,5 +1,21 @@
-apiVersion: v1
+apiVersion: v2
 description: Ntopng Helm chart for Kubernetes
 name: ntopng
-version: 1.0.0
-apiVersion: v1.5
+
+# This is the chart version. This version number should be incremented each time you make changes
+# to the chart and its templates, including the app version.
+# Versions are expected to follow Semantic Versioning (https://semver.org/)
+version: 5.7.0
+
+# This is the version number of the (container) application being deployed. This version number should be
+# incremented each time you make changes to the application. Versions are not expected to
+# follow Semantic Versioning. They should reflect the version the application is using.
+# It is recommended to use it with quotes.
+# Use: docker image ls  (to find the latest one)
+apiVersion: v1.9
+
+icon: https://i0.wp.com/www.ntop.org/wp-content/uploads/2015/05/ntopng-logo.png?ssl=1
+
+sources:
+- https://www.ntop.org/products/traffic-analysis/ntop/
+- https://github.com/ntop/ntopng

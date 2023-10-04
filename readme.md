@@ -1,7 +1,10 @@
 # ntopng container
 
+We have 2 ways to build a _pi4_ntopng_ container. One with the `build.sh` script which uses the ntopng package which available in ubuntu 20.04 repository (currently version 3.8.190813).
+The second way is building from scratch (from the sourecs) with the script `builder.sh` which uses the developmemt version (beginning of October 2023 is is 5.7.0).
+
 ```bash
-gdha@n1:~/projects/pi4-ntopng$ docker run --net=host -t -p 3000:3000 ghcr.io/gdha/pi4-ntopng:v1.1
+gdha@n1:~/projects/pi4-ntopng$ docker run --net=host -t -p 3000:3000 ghcr.io/gdha/pi4-ntopng:v1.5
 WARNING: Published ports are discarded when using host network mode
 Starting redis-server: redis-server.
 23/Feb/2023 15:54:51 [Ntop.cpp:1902] Setting local networks to 127.0.0.0/8

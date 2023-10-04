@@ -57,7 +57,7 @@ metadata:
   creationTimestamp: null
 type: kubernetes.io/dockerconfigjson
 data:
-  .dockerconfigjson: eyJhdXRocyI6eyJnaGNyLmlvIjp7InVzZXJuYW1lIjoiZ2RoYSIsInBhc3N3b3JkIjoiZ2hwX3V5TzRJcFJyek5qRXNuSU5zdzRENXVWUVVnZGFaUjQ0djRjNiIsImF1dGgiOiJaMlJvWVRwbmFIQmZkWGxQTkVsd1VuSjZUbXBGYzI1SlRuTjNORVExZFZaUlZXZGtZVnBTTkRSMk5HTTIifX19
+  .dockerconfigjson: eyJhdXRocyI6eyJnaGNy...jghjgjghghgjX1
 ---
 # Source: ntopng/templates/secrets.yaml
 apiVersion: v1
