@@ -2,7 +2,7 @@ ntopngNodeSelector:
   kubernetes.io/os: "linux"
 
 ntopngImageName: "ghcr.io/gdha/pi4-ntopng"
-ntopngImageVersion: "v1.9"
+ntopngImageVersion: "5.7.0"
 ntopngResources:
         #  limits:
         #    cpu: 1
