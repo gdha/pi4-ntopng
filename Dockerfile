@@ -1,7 +1,7 @@
 # Partial based on https://github.com/lucaderi/ntopng-docker/blob/master/Dockerfile
 # https://packages.ntop.org/apt/
 
-FROM ubuntu:focal
+FROM ubuntu:jammy
 
 ARG DEBIAN_FRONTEND=noninteractive
 ENV TZ=Europe/Brussels
