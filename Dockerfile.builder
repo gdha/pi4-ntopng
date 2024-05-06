@@ -5,7 +5,7 @@
 #
 # -- Stage 1 -- #
 # Compile the app.
-FROM ubuntu:focal as builder
+FROM ubuntu:jammy as builder
 WORKDIR /app
 # The build context is set to the directory where the repo is cloned.
 # This will copy all files in the repo to /app inside the container.
@@ -42,7 +42,7 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 ENV TZ=Europe/Brussels
 ENV LANG C.UTF-8
 
-FROM  ubuntu:focal
+FROM  ubuntu:jammy
 
 # To disable the installation of optional dependencies for all invocations of apt-get, the configuration file
 # at /etc/apt/apt.conf.d/00-docker is created with the following settings
