@@ -10,7 +10,7 @@ ENV LANG C.UTF-8
 RUN apt-get update && \
     apt-get install -y lsb-release software-properties-common wget && \
     add-apt-repository universe && \
-    wget https://packages.ntop.org/apt/20.04/all/apt-ntop.deb && \
+    wget https://packages.ntop.org/apt/22.04/all/apt-ntop.deb && \
     apt install -y ./apt-ntop.deb && \
     apt install -y ntopng ntopng-data redis-server libmysqlclient-dev libpcap0.8 netstat-nat
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
