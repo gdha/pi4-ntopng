@@ -2,7 +2,7 @@
 # To build with a new version: ./build.sh v1.1
 if [[ "$1" == "" ]]; then
   # no argument given - we will try to see if we already have old images locally
-  CURRENT_SUB_VERSION=$(docker image ls 2>/dev/null| grep pi4-ntopng | grep -v latest | head -1 | awk '{print $2}' | cut -d. -f2)
+  CURRENT_SUB_VERSION=$(docker image ls 2>/dev/null| grep pi4-ntopng | grep -v latest | grep ' v' | head -1 | awk '{print $2}'| cut -d. -f2)
   if [[ "$CURRENT_SUB_VERSION" == "" ]]; then
     REL=${1:-v1.0}
   else

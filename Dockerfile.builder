@@ -1,7 +1,7 @@
 # Partial based on https://github.com/lucaderi/ntopng-docker/blob/master/Dockerfile
 # https://packages.ntop.org/apt/
 
-# to build: docker build - < ./Dockerfile.builder
+# to build: docker builder build .  < ./Dockerfile.builder
 #
 # -- Stage 1 -- #
 # Compile the app.
@@ -14,7 +14,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 ENV TZ=Europe/Brussels
 ENV LANG C.UTF-8
 
-COPY dbip.tar.gz /tmp
+COPY ./dbip.tar.gz /tmp
 
 RUN mkdir /root/dat_files; cd /root/dat_files; tar xzvf /tmp/dbip.tar.gz ; gunzip *.gz && \
     DEBIAN_FRONTEND=noninteractive apt-get update && \

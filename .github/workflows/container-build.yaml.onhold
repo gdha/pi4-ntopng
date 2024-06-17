@@ -1,0 +1,65 @@
+name: "Container multi-Image Build pi4-ntopng"
+
+on:
+  push:
+    branches: [ "master" ]
+    # Publish semver tags as releases.
+    tags: [ '*.*.*' ]
+  pull_request:
+    branches: [ "master" ]
+  workflow_dispatch:
+    inputs:
+      publish:
+        type: boolean
+        default: false
+        required: true
+        description: "Push the image after the build?"
+
+permissions:
+  contents: read
+  packages: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
+
+      - name: Install qemu dependency
+        run: |-
+          sudo apt-get update
+          sudo apt-get install -y qemu-user-static
+
+      - name: Get ntopng Version
+        run: |-
+          VERSION="6.1.240613-23595"    # Ubuntu jammy version of ntopng
+          echo "APP_VERSION=${VERSION}"
+          echo "APP_VERSION=${VERSION}" >> $GITHUB_ENV
+
+      - id: container
+        name: Build Container Image
+        uses: redhat-actions/buildah-build@7a95fa7ee0f02d552a32753e7414641a04307056 # v2.13
+        with:
+          image: pi4-ntopng
+          tags: >-
+            ${{ env.APP_VERSION }}
+          oci: true
+          platforms: linux/amd64, linux/arm64
+          containerfiles: |-
+            Dockerfile
+
+      - name: Push container image to ghcr.io
+        if: ${{ (github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.publish)) && github.ref == 'refs/heads/master' }}
+        uses: redhat-actions/push-to-registry@5ed88d269cf581ea9ef6dd6806d01562096bee9c # v2.8
+        with:
+          image: pi4-ntopng
+          tags: ${{ env.APP_VERSION }}
+          registry: ghcr.io/${{ github.repository_owner }}
+          username: ${{ github.actor }}
+          password: ${{ github.token }}
+

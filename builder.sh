@@ -7,10 +7,10 @@
 # tar czvf  ../dbip.tar.gz *.gz
 # and copy these into /root/dat_files of the builder container before building the deb packages.
 
-# To build with a new version: ./build.sh v1.1
+# To build with a new version: ./builder.sh v1.1
 if [[ "$1" == "" ]]; then
   # no argument given - we will try to see if we already have old images locally
-  CURRENT_SUB_VERSION=$(docker image ls 2>/dev/null| grep pi4-ntopng | grep -v latest | head -1 | awk '{print $2}' | cut -d. -f2)
+  CURRENT_SUB_VERSION=$(docker image ls 2>/dev/null| grep pi4-ntopng | egrep -v '(latest|v)' | head -1 | awk '{print $2}' | cut -d. -f2)
   if [[ "$CURRENT_SUB_VERSION" == "" ]]; then
     REL=${1:-v1.0}
   else
@@ -27,7 +27,7 @@ cat ~/.ghcr-token | docker login ghcr.io -u gdha --password-stdin
 [[ -f builder.log ]] && mv -f builder.log builder.log.old
 
 echo "Building pi4-ntopng:$REL"
-docker build --no-cache --progress plain --tag ghcr.io/gdha/pi4-ntopng:$REL --file Dockerfile.builder . | tee -a builder.log
+docker builder build --no-cache --tag ghcr.io/gdha/pi4-ntopng:$REL --file Dockerfile.builder . | tee -a builder.log
 
 ntopng_version=$(grep 'ntopng version:'  builder.log | tail -1 | cut -d: -f2 | sed -e 's/ //')
 docker tag ghcr.io/gdha/pi4-ntopng:$REL ghcr.io/gdha/pi4-ntopng:$ntopng_version
