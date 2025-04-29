@@ -7,6 +7,9 @@
 # tar czvf  ../dbip.tar.gz *.gz
 # and copy these into /root/dat_files of the builder container before building the deb packages.
 
+# If you want to change your own GitHub account and Token please update the account name:
+GHUSER=gdha
+
 # To build with a new version: ./builder.sh v1.1
 if [[ "$1" == "" ]]; then
   # no argument given - we will try to see if we already have old images locally
@@ -22,15 +25,15 @@ else
   REL=${1:-v1.0}
 fi
 
-cat ~/.ghcr-token | docker login ghcr.io -u gdha --password-stdin
+cat ~/.ghcr-token | docker login ghcr.io -u $GHUSER --password-stdin
 
 [[ -f builder.log ]] && mv -f builder.log builder.log.old
 
 echo "Building pi4-ntopng:$REL"
-docker builder build --no-cache --tag ghcr.io/gdha/pi4-ntopng:$REL --file Dockerfile.builder . | tee -a builder.log
+docker builder build --no-cache --tag ghcr.io/$GHUSER/pi4-ntopng:$REL --file Dockerfile.builder . | tee -a builder.log
 
 ntopng_version=$(grep 'ntopng version:'  builder.log | tail -1 | cut -d: -f2 | sed -e 's/ //')
-docker tag ghcr.io/gdha/pi4-ntopng:$REL ghcr.io/gdha/pi4-ntopng:$ntopng_version
+docker tag ghcr.io/$GHUSER/pi4-ntopng:$REL ghcr.io/$GHUSER/pi4-ntopng:$ntopng_version
 
 echo "Pushing pi4-ntopng:$ntopng_version to GitHub Docker Container registry"
-docker push ghcr.io/gdha/pi4-ntopng:$ntopng_version
+docker push ghcr.io/$GHUSER/pi4-ntopng:$ntopng_version

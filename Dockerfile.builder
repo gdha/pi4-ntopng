@@ -54,7 +54,8 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
     add-apt-repository universe && \
     apt install -y redis-server libmariadb-dev libpcap0.8 netstat-nat && \
     apt install -y librrd8 logrotate libcurl4 librdkafka1 ethtool libmaxminddb0 && \
-    apt install -y libradcli4 libsnmp35 udev whiptail nmap libbpf0 libnuma1 libzmq5 libnetfilter-queue1
+    apt install -y libradcli4 udev whiptail nmap libbpf0 libnuma1 libzmq5 libnetfilter-queue1 libsnmp-dev && \
+    apt install -y libhiredis-dev cron libnats-dev
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
     echo "Europe/Brussels" > /etc/timezone && chmod 0644 /etc/timezone
