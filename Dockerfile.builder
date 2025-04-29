@@ -25,7 +25,9 @@ RUN mkdir /root/dat_files; cd /root/dat_files; tar xzvf /tmp/dbip.tar.gz ; gunzi
     add-apt-repository universe && \
     cd /app && \
     git clone https://github.com/ntop/nDPI.git && \
-    cd nDPI; ./autogen.sh; ./configure; make; cd .. && \
+    cd nDPI; ./autogen.sh; ./configure; make && \
+    cd packages/ubuntu ; ./configure ; sed -i "s/dpkg-sig .*/#dpkg-sig/g" Makefile ; make ndpi && \
+    cd ../../.. && \
     git clone https://github.com/ntop/ntopng.git && \
     cd ntopng && \
     grep version package.json | cut -d\" -f4 > ./version && \
@@ -62,10 +64,11 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
 
 WORKDIR /root/
 # Copy the binary from the builder stage and set it as the default command.
+COPY --from=builder /app/nDPI/packages/ubuntu/ndpi*.deb ./
 COPY --from=builder /app/ntopng/packages/ubuntu/ntopng*.deb ./
 COPY --from=builder /app/ntopng/version ./
 
-RUN dpkg -i ./ntopng*.deb
+RUN dpkg -i ./ndpi*.deb ./ntopng*.deb
 
 COPY redis.conf /etc/redis/
 COPY run.sh /tmp/run.sh

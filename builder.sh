@@ -7,6 +7,16 @@
 # tar czvf  ../dbip.tar.gz *.gz
 # and copy these into /root/dat_files of the builder container before building the deb packages.
 
+[[ -f builder.log ]] && mv -f builder.log builder.log.old
+echo "
+##############################################
+# builder.sh compiles ntopng from scratch    #
+# Date $(date)      #
+# ---------------------------------------    #
+# Using Dockerfile.builder as input          #
+##############################################
+" | tee -a builder.log
+
 # If you want to change your own GitHub account and Token please update the account name:
 GHUSER=gdha
 
@@ -25,9 +35,9 @@ else
   REL=${1:-v1.0}
 fi
 
+echo "Building ntopng version $REL" | tee -a builder.log
 cat ~/.ghcr-token | docker login ghcr.io -u $GHUSER --password-stdin
 
-[[ -f builder.log ]] && mv -f builder.log builder.log.old
 
 echo "Building pi4-ntopng:$REL"
 docker builder build --no-cache --tag ghcr.io/$GHUSER/pi4-ntopng:$REL --file Dockerfile.builder . | tee -a builder.log
